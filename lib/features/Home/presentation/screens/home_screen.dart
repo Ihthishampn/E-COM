@@ -1,5 +1,6 @@
 import 'package:e_com/core/utils/app_state.dart';
 import 'package:e_com/core/utils/color_theme.dart';
+import 'package:e_com/features/Home/data/model/cat_product_model.dart';
 import 'package:e_com/features/Home/presentation/provider/category_provider.dart';
 import 'package:e_com/features/Home/presentation/provider/popular_prodcuts_provider.dart';
 import 'package:e_com/features/Home/presentation/widgets/cat_container.dart';
@@ -70,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               height: 50,
               child: Consumer<CategoryProvider>(
                 builder: (context, provider, child) {
-                  if (provider.state == AppState.loading) {
+                  if (provider.catState == AppState.loading) {
                     return const Center(
                       child: SizedBox(
                         height: 20,
@@ -83,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   }
 
-                  if (provider.state == AppState.error) {
+                  if (provider.catState == AppState.error) {
                     return Center(child: Text("try again later"));
                   }
 
@@ -96,8 +97,8 @@ class HomeScreen extends StatelessWidget {
 
                     itemBuilder: (context, index) {
                       return CatContainer(
+                        category: provider.catList[index],
                         index: index,
-                        provider: provider.catList[index],
                       );
                     },
                   );
@@ -113,17 +114,17 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(child: Divider(endIndent: 21, indent: 21)),
-                Selector<CategoryProvider,String>(builder: (context, value, child) {
-                  
-
-return KText(
-                  text: value.toUpperCase(),
-                  color: Colors.amber,
-                  fontSize: 16,
-                  weight: FontWeight.bold,
-                );
-
-                }, selector: (_, pro) => pro.selectedCat,),
+                Selector<CategoryProvider, String>(
+                  builder: (context, value, child) {
+                    return KText(
+                      text: value.toUpperCase(),
+                      color: Colors.amber,
+                      fontSize: 16,
+                      weight: FontWeight.bold,
+                    );
+                  },
+                  selector: (_, pro) => pro.selectedCat,
+                ),
                 Expanded(child: Divider(endIndent: 21, indent: 21)),
               ],
             ),
@@ -132,27 +133,116 @@ return KText(
           SliverToBoxAdapter(child: const SizedBox(height: 10)),
 
           SliverPadding(
-            padding: EdgeInsetsGeometry.only(left: 14, right: 14),
-            sliver: SliverGrid.builder(
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 0.82, // taller items
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            sliver: Consumer<CategoryProvider>(
+              builder: (context, provider, _) {
+                if (provider.isProductsLoading) {
+                  return SliverFillRemaining(
+                  child: Center(
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+        color: Colors.white,
+      ),
+    ),
+                  );
+                }
 
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(14),
-                      topRight: Radius.circular(14),
+                if (provider.catBasedList.isEmpty) {
+                  return const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 40),
+                      child: Center(
+                        child: Text(
+                          'No products available',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
                     ),
-                    color: Colors.amber,
+                  );
+                }
+
+                return SliverGrid(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return _ProductCard(product: provider.catBasedList[index]);
+                  }, childCount: provider.catBasedList.length),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.72,
                   ),
                 );
               },
+            ),
+          ),
+
+          SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProductCard extends StatelessWidget {
+  final CatProductModel product;
+
+  const _ProductCard({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 230, 229, 229),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
+              ),
+              child: Image.network(
+                product.images.first,
+                fit: BoxFit.contain,
+                width: double.infinity,
+                errorBuilder: (_, __, ___) =>
+                    const Center(child: Icon(Icons.image_not_supported)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  product.brand,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 82, 80, 80),
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  "₹${product.price}",
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 63, 171, 67),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -17,17 +17,7 @@ class CategoryContainer extends StatelessWidget {
         return Container(
           width: 250,
           margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                blurRadius: 10,
-                offset: const Offset(0, 6),
-              ),
-            ],
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
           child: Stack(
             children: [
               Column(
@@ -40,7 +30,6 @@ class CategoryContainer extends StatelessWidget {
                     ),
                     child: Container(
                       height: 130,
-                      color: AppColors.bg,
                       padding: const EdgeInsets.all(10),
                       child: CachedNetworkImage(
                         imageUrl: item.images.first,
@@ -55,7 +44,7 @@ class CategoryContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-        
+
                   // DETAILS
                   Padding(
                     padding: const EdgeInsets.all(10),
@@ -96,7 +85,7 @@ class CategoryContainer extends StatelessWidget {
                   ),
                 ],
               ),
-        
+
               // 🔥 POPULAR
               Positioned(
                 top: 8,
@@ -120,7 +109,7 @@ class CategoryContainer extends StatelessWidget {
                   ),
                 ),
               ),
-        
+
               // INDEX BADGE
               Positioned(
                 top: 8,

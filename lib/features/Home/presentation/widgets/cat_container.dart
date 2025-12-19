@@ -6,69 +6,53 @@ import 'package:provider/provider.dart';
 
 class CatContainer extends StatelessWidget {
   final int index;
-  final String provider;
+  final String category;
 
-  const CatContainer({super.key, required this.index, required this.provider});
+  const CatContainer({
+    super.key,
+    required this.index,
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final bgColor =
-        AppColors.categoryColors[index % AppColors.categoryColors.length];
+    final bgColor = AppColors.categoryColors[
+      category.hashCode % AppColors.categoryColors.length
+    ];
 
     return Selector<CategoryProvider, String>(
       selector: (_, p) => p.selectedCat,
       builder: (context, selectedCat, _) {
-        final isSelected = selectedCat == provider;
+        final isSelected = selectedCat == category;
 
-        return Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomRight: Radius.circular(12),
+        return InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            context.read<CategoryProvider>().changeCat(category);
+          },
+          child: Container(
+            margin: const EdgeInsets.all(6),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: isSelected ? bgColor : bgColor.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: isSelected
+                  ? [
+                      BoxShadow(
+                        blurRadius: 7,
+                        spreadRadius: 3,
+                        color: bgColor.withOpacity(0.9),
+                      ),
+                    ]
+                  : [],
             ),
-            onTap: () {
-
-
-
-              context.read<CategoryProvider>().changeCat(provider);
-
-  //  cat list product provider logic ivide....
-
-
-            },
-            child: Container(
-              margin: const EdgeInsets.all(6),
-              width: 90,
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? bgColor
-                    : bgColor.withOpacity(0.4), // 👈 visual feedback
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          blurRadius: 7,
-                          spreadRadius: 3,
-                          color: bgColor.withOpacity(0.9),
-                        ),
-                      ]
-                    : [],
-              ),
-              child: KText(
-                text: provider,
-                weight: FontWeight.w600,
-                fontSize: 15,
-                color: Colors.white,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ),
+            child: KText(
+              text: category,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              color: Colors.white,
+              weight: FontWeight.w600,
             ),
           ),
         );
