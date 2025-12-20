@@ -22,3 +22,4 @@ final GoRouter appRoute = GoRouter(
     GoRoute(path: '/Entry',pageBuilder: (context, state) => NoTransitionPage(child: EntryScreen()),)
   ],
 );
+

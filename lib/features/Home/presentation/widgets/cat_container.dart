@@ -8,17 +8,12 @@ class CatContainer extends StatelessWidget {
   final int index;
   final String category;
 
-  const CatContainer({
-    super.key,
-    required this.index,
-    required this.category,
-  });
+  const CatContainer({super.key, required this.index, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = AppColors.categoryColors[
-      category.hashCode % AppColors.categoryColors.length
-    ];
+    final bgColor = AppColors
+        .categoryColors[category.hashCode % AppColors.categoryColors.length];
 
     return Selector<CategoryProvider, String>(
       selector: (_, p) => p.selectedCat,
@@ -34,7 +29,7 @@ class CatContainer extends StatelessWidget {
             margin: const EdgeInsets.all(6),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
-              color: isSelected ? bgColor : bgColor.withOpacity(0.4),
+              color: isSelected ? Colors.green : bgColor.withOpacity(0.4),
               borderRadius: BorderRadius.circular(12),
               boxShadow: isSelected
                   ? [

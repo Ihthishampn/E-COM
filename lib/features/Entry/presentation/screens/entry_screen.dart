@@ -1,5 +1,6 @@
 import 'package:e_com/features/Entry/presentation/provider/nav_provider.dart';
 import 'package:e_com/features/Home/presentation/screens/home_screen.dart';
+import 'package:e_com/features/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class EntryScreen extends StatefulWidget {
 class _EntryScreenState extends State<EntryScreen> {
   final pages = const [
     HomeScreen(),
-    Center(child: Text('Cart')),
+    CartScreen(),
     Center(child: Text('Profile')),
   ];
 

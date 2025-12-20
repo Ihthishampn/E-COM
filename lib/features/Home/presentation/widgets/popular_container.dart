@@ -4,9 +4,9 @@ import 'package:e_com/features/Home/presentation/provider/popular_prodcuts_provi
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CategoryContainer extends StatelessWidget {
+class PopularContainer extends StatelessWidget {
   final int index;
-  const CategoryContainer({super.key, required this.index});
+  const PopularContainer({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,17 @@ class CategoryContainer extends StatelessWidget {
         return Container(
           width: 250,
           margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1E1E1E),
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: Stack(
             children: [
               Column(
@@ -26,28 +36,28 @@ class CategoryContainer extends StatelessWidget {
                   // IMAGE
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12),
+                      top: Radius.circular(14),
                     ),
                     child: Container(
-                      height: 130,
-                      padding: const EdgeInsets.all(10),
+                      height: 140,
+                      color: const Color(0xFF2A2A2A),
+                      padding: const EdgeInsets.all(12),
                       child: CachedNetworkImage(
                         imageUrl: item.images.first,
                         fit: BoxFit.contain,
                         width: double.infinity,
-                        height: 130,
                         placeholder: (_, __) => const Center(
                           child: CircularProgressIndicator(strokeWidth: 2),
                         ),
                         errorWidget: (_, __, ___) =>
-                            const Icon(Icons.broken_image),
+                            const Icon(Icons.broken_image, color: Colors.grey),
                       ),
                     ),
                   ),
 
                   // DETAILS
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -60,7 +70,7 @@ class CategoryContainer extends StatelessWidget {
                             color: Colors.grey,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                         Text(
                           item.description,
                           maxLines: 2,
@@ -71,11 +81,11 @@ class CategoryContainer extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 8),
                         Text(
                           '\$${item.price}',
                           style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.orange,
                           ),
@@ -86,21 +96,17 @@ class CategoryContainer extends StatelessWidget {
                 ],
               ),
 
-              // 🔥 POPULAR
+              // 🔥 POPULAR BADGE
               Positioned(
-                top: 8,
-                right: 8,
+                top: 10,
+                right: 10,
                 child: Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: Colors.orange,
+                    gradient: const LinearGradient(
+                      colors: [Colors.orange, Colors.deepOrange],
+                    ),
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.orange.withOpacity(0.5),
-                        blurRadius: 6,
-                      ),
-                    ],
                   ),
                   child: const Icon(
                     Icons.local_fire_department,
@@ -112,8 +118,8 @@ class CategoryContainer extends StatelessWidget {
 
               // INDEX BADGE
               Positioned(
-                top: 8,
-                left: 8,
+                top: 10,
+                left: 10,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
