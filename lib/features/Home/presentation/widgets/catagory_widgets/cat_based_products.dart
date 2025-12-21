@@ -1,5 +1,8 @@
 import 'package:e_com/features/Home/data/model/cat_product_model.dart';
+import 'package:e_com/features/favorite/data/model/favorite_model.dart';
+import 'package:e_com/features/favorite/presentation/provider/fav_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   final CatProductModel product;
@@ -71,39 +74,58 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ),
-
+        //   faviourite icon
         Positioned(
           right: 1,
-          child: IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
+          child: IconButton(
+            onPressed: () async {
+              await context.read<FavProvider>().handleFavAddToFirebase(
+                FavoriteModel(
+                  productId: product.id,
+                  createdAt: DateTime.timestamp(),
+                  title: product.title,
+                  description: product.description,
+                  category: product.category,
+                  price: product.price,
+                  brand: product.brand,
+                  rating: product.rating,
+                  warrantyInformation: product.warrantyInformation,
+                  shippingInformation: product.shippingInformation,
+                  images: product.images.first,
+                ),
+              );
+              //
+            },
+            icon: Icon(Icons.favorite),
+          ),
         ),
-       Positioned(
-  right: 8,
-  bottom: 6,
-  child: Material(
-    color: const Color(0xFF4CAF50),
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(14),
-      bottomRight: Radius.circular(14),
-    ),
-    elevation: 4,
-    child: InkWell(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(14),
-        bottomRight: Radius.circular(14),
-      ),
-      onTap: () {},
-      child: const Padding(
-        padding: EdgeInsets.all(10),
-        child: Icon(
-          Icons.shopping_cart_outlined,
-          color: Colors.white,
-          size: 22,
+        Positioned(
+          right: 8,
+          bottom: 6,
+          child: Material(
+            color: const Color(0xFF4CAF50),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(14),
+              bottomRight: Radius.circular(14),
+            ),
+            elevation: 4,
+            child: InkWell(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(14),
+                bottomRight: Radius.circular(14),
+              ),
+              onTap: () {},
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.white,
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
-    ),
-  ),
-),
-
       ],
     );
   }

@@ -4,11 +4,15 @@ import 'package:e_com/features/Widgets/k_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CatContainer extends StatelessWidget {
+class CatSelectChips extends StatelessWidget {
   final int index;
   final String category;
 
-  const CatContainer({super.key, required this.index, required this.category});
+  const CatSelectChips({
+    super.key,
+    required this.index,
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context) {

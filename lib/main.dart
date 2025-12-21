@@ -2,12 +2,12 @@ import 'package:e_com/core/di/di.dart';
 import 'package:e_com/core/utils/color_theme.dart';
 import 'package:e_com/core/utils/constants.dart';
 import 'package:e_com/features/Entry/presentation/provider/nav_provider.dart';
-import 'package:e_com/features/Home/data/popular_repository_impl/popular_repo_impl.dart';
 import 'package:e_com/features/Home/presentation/provider/category_provider.dart';
 import 'package:e_com/features/Home/presentation/provider/popular_prodcuts_provider.dart';
 import 'package:e_com/features/auth/signUp/data/auth_repository_imp.dart';
 import 'package:e_com/features/auth/signUp/presentation/provider/auth_provider.dart';
 import 'package:e_com/core/Network/firebase/firebase_options.dart';
+import 'package:e_com/features/favorite/presentation/provider/fav_provider.dart';
 import 'package:e_com/routes/app_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +34,8 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(catListrepo),
+        ),ChangeNotifierProvider(
+          create: (context) => FavProvider(favRepo),
         ),
       ],
       child: const MyApp(),

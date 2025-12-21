@@ -7,7 +7,6 @@ class CatFetchDataSource {
 
   Future<List<String>> catFetchdio() async {
     final response = await client.dio.get('products/category-list');
-    print(response.statusCode);
 
     final List catList = response.data;
     return catList.map((e) => e.toString()).toList();
@@ -16,7 +15,6 @@ class CatFetchDataSource {
   Future<List<CatProductModel>> catProductFetchDio(String q) async {
     final response = await client.dio.get("products/category/$q");
 
-    print("cat pro ${response.statusCode}");
 
     final List pro = response.data["products"];
 

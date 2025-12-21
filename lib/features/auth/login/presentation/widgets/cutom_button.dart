@@ -1,8 +1,5 @@
 import 'package:e_com/core/utils/color_theme.dart';
-import 'package:e_com/features/auth/signUp/presentation/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

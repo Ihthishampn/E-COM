@@ -33,7 +33,6 @@ class PopularProdcutsProvider extends ChangeNotifier {
       error = "try agin later.";
       state = AppState.error;
     } finally {
-      print(error.toString());
       notifyListeners();
     }
   }

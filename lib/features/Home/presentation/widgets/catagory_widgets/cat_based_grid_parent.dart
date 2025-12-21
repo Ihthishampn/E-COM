@@ -1,5 +1,5 @@
 import 'package:e_com/features/Home/presentation/provider/category_provider.dart';
-import 'package:e_com/features/Home/presentation/widgets/cat_based_products.dart';
+import 'package:e_com/features/Home/presentation/widgets/catagory_widgets/cat_based_products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

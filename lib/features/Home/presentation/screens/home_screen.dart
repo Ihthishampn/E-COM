@@ -1,9 +1,9 @@
 import 'package:e_com/core/utils/color_theme.dart';
 import 'package:e_com/features/Home/presentation/provider/category_provider.dart';
-import 'package:e_com/features/Home/presentation/widgets/cat_based_grid_parent.dart';
-import 'package:e_com/features/Home/presentation/widgets/choice_chips_cat_selector.dart';
+import 'package:e_com/features/Home/presentation/widgets/catagory_widgets/cat_based_grid_parent.dart';
+import 'package:e_com/features/Home/presentation/widgets/catagory_widgets/cat_select_chips_parent.dart';
 import 'package:e_com/features/Home/presentation/widgets/custom_silver_app_bar.dart';
-import 'package:e_com/features/Home/presentation/widgets/popular_container_parent_.dart';
+import 'package:e_com/features/Home/presentation/widgets/popular_widgets/popular_container_parent_.dart';
 import 'package:e_com/features/Widgets/k_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,10 +36,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             // popular container....
-         PopularContainerParentWid(),
+            PopularContainerParentWid(),
             SliverToBoxAdapter(child: const SizedBox(height: 20)),
             // seccion like a choice chips for select catagoury
-            ChoiceChipsCatSelector(),
+            CatSelectChipParent(),
             SliverToBoxAdapter(child: const SizedBox(height: 15)),
 
             // selcted cat showing as a text with  lines

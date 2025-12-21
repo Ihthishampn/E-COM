@@ -1,6 +1,6 @@
 import 'package:e_com/core/utils/app_state.dart';
 import 'package:e_com/features/Home/presentation/provider/popular_prodcuts_provider.dart';
-import 'package:e_com/features/Home/presentation/widgets/popular_container.dart';
+import 'package:e_com/features/Home/presentation/widgets/popular_widgets/popular_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

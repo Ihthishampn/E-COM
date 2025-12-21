@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomIcon extends StatelessWidget {
   final IconData iconname;
@@ -7,9 +8,14 @@ class CustomIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-     iconname,
-      color:color, // accent
+    return IconButton(
+      onPressed: () {
+        context.push('/favorite');
+      },
+      icon: Icon(
+        iconname,
+        color: color, // accent
+      ),
     );
   }
 }

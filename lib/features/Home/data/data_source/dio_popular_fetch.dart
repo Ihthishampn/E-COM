@@ -11,7 +11,6 @@ class DioPopularFetchDataSource {
     final response = await dioClient.dio.get(
       ApiEndPoints.popularProducts,queryParameters: {'limit':10,'skip':100},
     );
-    print(response.statusCode);
     final List products = response.data['products'];
 
     return products.map((e) => PopularProductModel.fromJson(e)).toList();
